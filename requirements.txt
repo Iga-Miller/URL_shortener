@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+SQLAlchemy
+asyncpg
+celery
+psycopg2-binary
+pydantic
+jinja2
+pytest
+httpx
