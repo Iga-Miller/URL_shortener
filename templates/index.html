@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skracacz URL</title>
+</head>
+<body>
+    <h1>Skracacz URL</h1>
+    <form id="shorten-form">
+        <input type="text" id="url" name="url" placeholder="Wprowadź URL" required>
+        <button type="submit">Skróć URL</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById("shorten-form").onsubmit = async (event) => {
+            event.preventDefault();
+            const url = document.getElementById("url").value;
+
+            const response = await fetch("/shorten", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ url })
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                document.getElementById("result").innerText = `Skrócony URL: /u/${data.result}`;
+            } else {
+                document.getElementById("result").innerText = `Błąd: ${data.detail}`;
+            }
+        };
+    </script>
+</body>
+</html>
